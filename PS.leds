@@ -1,0 +1,45 @@
+project series{
+	infrastructure{
+		basePackage = "com.exemplo.ProjetoSeriado"
+		projectVersion = "0.0.0"
+		language = { @name: "Java", @version: "8"}
+		framework = { @name: "SpringRoo", @version:"1.2"}
+		orm = {@name: "HIBERNATE", @version: "3"}
+		database = {
+			@version: "5",
+			@name: "HYPERSONIC_IN_MEMORY",
+		}
+	}
+	 
+	interface ifaceSeriado{
+		HtmlView interfaceWeb => appSerie
+	}
+
+	application appSerie{
+		composedBy domSeriadoDoZe.*
+	}
+	
+	domain domSeriadoDoZe{
+		module main{
+			enum TipoDeCategoria{
+				acao, aventura, ficcao, animacao, terror, comedia
+			}
+			enum Indicacao{
+				infantil, infantojunvanil, adulto
+			}
+			enum Formato{
+				avi, mkv, hdrip, dvdrip
+			}
+			entity Filme{
+				private String nome @min(2)
+				private String sinopse @min(3)
+				private int duracao @min(3)
+				private int avaliacao @between(0, 5)
+				private TipoDeCategoria tipo
+				private Indicacao indicacao
+				private Formato formato
+			}
+			
+		}
+	}
+}
